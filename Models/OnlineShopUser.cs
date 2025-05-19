@@ -12,27 +12,31 @@ public class OnlineShopUser
         string name,
         string lastName,
         string phoneNumber,
-        string nationalCode
+        string nationalCode,
+        bool isActive
         )
     {
         SetName(name);
         SetLastName(lastName);
         SetPhoneNumber(phoneNumber);
         SetNationalCode(nationalCode);
+        SetActivation(isActive);
     }
 
     public static OnlineShopUser Create(
         string name,
         string lastName,
         string phoneNumber,
-        string nationalCode
+        string nationalCode,
+        bool isActive
         )
     {
         return new(
             name,
             lastName,
             phoneNumber,
-            nationalCode
+            nationalCode,
+            isActive
             );
     }
 

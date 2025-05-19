@@ -16,7 +16,8 @@ public class UserController(ApplicationDbContext db) : ControllerBase
             request.Name,
             request.LastName,
             request.PhoneNumber,
-            request.NationalCode
+            request.NationalCode,
+            request.IsActive
             );
 
         await db.AddAsync(entity, cancellationToken);
@@ -75,7 +76,7 @@ public class UserController(ApplicationDbContext db) : ControllerBase
         IQueryable<OnlineShopUser> query = db.Users.AsNoTracking();
 
         if (string.IsNullOrWhiteSpace(q) is false)
-            query.Where(model =>
+            query = query.Where(model =>
                 model.Name.Contains(q) ||
                 model.LastName.Contains(q) ||
                 model.NationalCode.Contains(q) ||
@@ -83,7 +84,7 @@ public class UserController(ApplicationDbContext db) : ControllerBase
             );
 
         if (isActive.HasValue)
-            query.Where(model => model.IsActive.Equals(isActive));
+            query = query.Where(model => model.IsActive.Equals(isActive));
 
         List<OnlineShopUser> users = await query.ToListAsync(cancellationToken);
 
